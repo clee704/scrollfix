@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>dev.chungmin.scrollfix</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/path/to/scrollfix</string>
+    </array>
+
+    <!-- Start automatically when you log in -->
+    <key>RunAtLoad</key>
+    <true/>
+
+    <!-- Keep it alive if it quits unexpectedly -->
+    <key>KeepAlive</key>
+    <true/>
+
+    <!-- Optional: write logs -->
+    <key>StandardOutPath</key>
+    <string>/tmp/scrollfix.log</string>
+    <key>StandardErrorPath</key>
+    <string>/tmp/scrollfix.err</string>
+</dict>
+</plist>
