@@ -25,9 +25,12 @@ cd scrollfix
 
 During install:
 1. The script compiles `scrollfix.cpp` → `scrollfix`.
-2. It installs `~/Library/LaunchAgents/dev.chungmin.scrollfix.plist`.
-3. It asks you to grant Accessibility permission for the binary (System Settings → Privacy & Security → Accessibility).
-4. Once granted, the LaunchAgent starts automatically.
+2. It copies the binary to `~/Library/Application Support/ScrollFix/scrollfix` (stable path used by the permission dialog).
+3. It installs `~/Library/LaunchAgents/dev.chungmin.scrollfix.plist` pointing at that path.
+4. It asks you to grant Accessibility permission for the binary (System Settings → Privacy & Security → Accessibility).
+5. Once granted, the LaunchAgent starts automatically.
+
+Re-running `./install.sh` keeps the binary at the same path, so you generally don’t need to re-authorize Accessibility after the first run.
 
 Expected output:
 ```
@@ -42,4 +45,4 @@ The scroll inversion takes effect immediately.
 ./uninstall.sh
 ```
 
-This stops and removes the LaunchAgent and its plist.
+This stops and removes the LaunchAgent and its plist. It also deletes the installed binary at `~/Library/Application Support/ScrollFix/scrollfix`.

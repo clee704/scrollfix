@@ -7,13 +7,15 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PLIST_SRC="${SCRIPT_DIR}/dev.chungmin.scrollfix.plist"
 AGENTS_DIR="${HOME}/Library/LaunchAgents"
 PLIST_DST="${AGENTS_DIR}/${LABEL}.plist"
-BIN_PATH="${SCRIPT_DIR}/scrollfix"
+INSTALL_ROOT="${HOME}/Library/Application Support/ScrollFix"
+BIN_BUILD="${SCRIPT_DIR}/scrollfix"
+BIN_PATH="${INSTALL_ROOT}/scrollfix"
 
 echo "=== Build ==="
 make -C "${SCRIPT_DIR}"
 
-if [[ ! -x "${BIN_PATH}" ]]; then
-  echo "Error: binary not found or not executable at: ${BIN_PATH}" >&2
+if [[ ! -x "${BIN_BUILD}" ]]; then
+  echo "Error: binary not found or not executable at: ${BIN_BUILD}" >&2
   exit 1
 fi
 
@@ -22,7 +24,10 @@ mkdir -p "${AGENTS_DIR}"
 cp -f "${PLIST_SRC}" "${PLIST_DST}"
 /usr/bin/sed -i '' "s#/path/to/scrollfix#${BIN_PATH}#g" "${PLIST_DST}"
 chmod 0644 "${PLIST_DST}"
-chmod 0755 "${BIN_PATH}"
+
+echo "=== Install binary ==="
+mkdir -p "${INSTALL_ROOT}"
+/usr/bin/install -m 0755 "${BIN_BUILD}" "${BIN_PATH}"
 
 # Optionally write logs to files for easier debugging (harmless if duplicated)
 if ! /usr/bin/plutil -extract StandardOutPath raw "${PLIST_DST}" >/dev/null 2>&1; then
